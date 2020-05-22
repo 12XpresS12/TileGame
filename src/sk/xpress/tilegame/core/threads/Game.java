@@ -5,6 +5,7 @@ import sk.xpress.tilegame.core.blocks.block.Grass_Block;
 import sk.xpress.tilegame.core.blocks.block.Stone;
 import sk.xpress.tilegame.core.blocks.block.Water;
 import sk.xpress.tilegame.core.blocks.block.Wood_Plank;
+import sk.xpress.tilegame.core.listeners.KeyboardListener;
 import sk.xpress.tilegame.core.map.OpenSimplexNoise;
 import sk.xpress.tilegame.core.tiles.Tile;
 import sk.xpress.tilegame.core.tiles.worlds.Overworld;
@@ -12,6 +13,10 @@ import sk.xpress.tilegame.core.tiles.World;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Random;
 
 public class Game extends GameThread {
@@ -39,6 +44,10 @@ public class Game extends GameThread {
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
         jFrame.setSize(width, height);
+
+        new KeyboardListener();
+
+        jFrame.addKeyListener(KeyboardListener.getKeyListener());
 
         initialize();
         this.preparedToStart(); // Must be last, because this will start the Game Thread
@@ -96,10 +105,6 @@ public class Game extends GameThread {
             graphics = jFrame.getGraphics();
         /*VER 3
          */
-        int size = ( this.height / this.DEFAULT_TILE_SIZE_PX ) + (this.width / this.DEFAULT_TILE_SIZE_PX);
-        for(int x = 0; x < size; x++) {
-
-        }
 
         for(int y = 0; y < height; y+=DEFAULT_TILE_SIZE_PX) {
             for (int x = 0; x < width; x += DEFAULT_TILE_SIZE_PX) {
@@ -164,4 +169,6 @@ public class Game extends GameThread {
     public int getHeight() {
         return height;
     }
+
+    public JFrame getJFrame() { return jFrame; }
 }
