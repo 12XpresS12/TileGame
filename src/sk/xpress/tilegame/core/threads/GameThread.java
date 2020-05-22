@@ -2,34 +2,32 @@ package sk.xpress.tilegame.core.threads;
 
 import java.util.concurrent.TimeUnit;
 
-public abstract class GameThread extends Threaded {
+public abstract class GameThread implements Runnable {
 
+    Thread gameThread;
     boolean isRunning = true;
 
-    public synchronized void createThread(String threadName) {
-        super.createThread(threadName, this);
-    }
-
-
-    @Override
-    public void startThread() {
-        System.out.println("INIT THREAD");
-        this.run();
-    }
-
-    @Override
-    public void stopThread() {
+    public GameThread() {
+        System.out.println("Initializing Thread");
+        gameThread = new Thread(this, "GameThread");
 
     }
 
-    public abstract void initialize();
+    protected void preparedToStart() {
+        gameThread.start();
+    }
 
-    public abstract void update();
-    public abstract void render();
+    protected abstract void initialize();
+
+    protected abstract void update();
+    protected abstract void render();
+
+    protected abstract void stopThread();
 
     @Override
     public void run() {
         initialize();
+        System.out.println("THREAD: " + Thread.currentThread().getName());
 
         int x = 0;
         while(isRunning) {

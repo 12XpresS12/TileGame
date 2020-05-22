@@ -29,8 +29,8 @@ public class Game extends GameThread {
     private OpenSimplexNoise openSimplexNoise;
 
     public Game(String title) {
+        super();
         this.gameTitle = title;
-
         jFrame = new JFrame(title);
 
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,7 +38,8 @@ public class Game extends GameThread {
         jFrame.setSize(width, height);
 
         graphics = jFrame.getGraphics();
-        openSimplexNoise = new OpenSimplexNoise(random.nextLong());
+
+        this.preparedToStart();
     }
 
     @Override
@@ -47,7 +48,7 @@ public class Game extends GameThread {
 
         for(int x = 0; x < width; x+=DEFAULT_TILE_SIZE_PX) {
             for (int y = 0; y < height; y += DEFAULT_TILE_SIZE_PX) {
-                double a = (openSimplexNoise.eval(x, y)*10);
+                double a = (overWorld.getOpenSimplexNoise().eval(x, y)*10);
                 Block block;
                 switch((int) a){
                     case 0:
@@ -92,11 +93,20 @@ public class Game extends GameThread {
     public void render() {
         for(int x = 0; x < width; x+=DEFAULT_TILE_SIZE_PX) {
             for(int y = 0; y < height; y+=DEFAULT_TILE_SIZE_PX) {
+                graphics.setColor(
+                        overWorld
+                        .getTile()[x][y]
+                        .getBlockMaterial()
+                        .getColor());
 
-                graphics.setColor(overWorld.getTile()[x][y].getBlockMaterial().getColor());
                 graphics.fill3DRect(x, y, x+DEFAULT_TILE_SIZE_PX, y+DEFAULT_TILE_SIZE_PX, false);
             }
         }
+    }
+
+    @Override
+    public void stopThread() {
+
     }
 
     public OpenSimplexNoise getOpenSimplexNoise() {

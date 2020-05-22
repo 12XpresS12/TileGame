@@ -9,6 +9,11 @@ import sk.xpress.tilegame.core.tiles.World;
 public class Overworld extends World {
 
     @Override
+    public String getWorldName() {
+        return "Overworld";
+    }
+
+    @Override
     public void addTile(BlockMaterial blockMaterial, int x, int y) {
     }
 

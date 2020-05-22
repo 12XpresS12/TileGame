@@ -7,7 +7,6 @@ public class Main {
 
     public static void main(String[] args) {
         Game game = new Game("Test");
-        game.createThread(gameThreadName);
         Game.setGame(game); // Initialize Game instance
     }
 }

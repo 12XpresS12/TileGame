@@ -5,6 +5,8 @@ import sk.xpress.tilegame.core.blocks.BlockMaterial;
 
 public interface IWorld {
 
+    String getWorldName();
+
     Tile[][] getTile();
 
     @Deprecated
