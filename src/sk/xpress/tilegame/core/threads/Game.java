@@ -1,5 +1,6 @@
 package sk.xpress.tilegame.core.threads;
 
+import sk.xpress.tilegame.core.Location;
 import sk.xpress.tilegame.core.blocks.*;
 import sk.xpress.tilegame.core.blocks.block.Grass_Block;
 import sk.xpress.tilegame.core.blocks.block.Stone;
@@ -8,6 +9,7 @@ import sk.xpress.tilegame.core.blocks.block.Wood_Plank;
 import sk.xpress.tilegame.core.listeners.KeyboardListener;
 import sk.xpress.tilegame.core.map.OpenSimplexNoise;
 import sk.xpress.tilegame.core.tiles.Tile;
+import sk.xpress.tilegame.core.tiles.WorldManager;
 import sk.xpress.tilegame.core.tiles.worlds.Overworld;
 import sk.xpress.tilegame.core.tiles.World;
 
@@ -33,7 +35,6 @@ public class Game extends GameThread {
     private static final Random random = new Random();
 
     private World overWorld;
-    private OpenSimplexNoise openSimplexNoise;
 
     public Game(String title) {
         super();
@@ -56,17 +57,19 @@ public class Game extends GameThread {
     @Override
     public void initialize() {
         overWorld = new Overworld();
+        WorldManager.addWorld("world", overWorld);
 
         for(int x = 0; x < width*8; x+=DEFAULT_TILE_SIZE_PX) {
             for (int y = 0; y < height*8; y += DEFAULT_TILE_SIZE_PX) {
                 double a = (overWorld.getOpenSimplexNoise().eval(x, y)*10);
                 Block block;
+                Location location = new Location(WorldManager.getDefaultWorld(), x, y);
                 switch((int) a){
                     case 0:
                     case 1:
                     case 2:
                     case 3: {
-                        block = new Grass_Block(x, y);
+                        block = new Grass_Block(location.clone());
                         break;
                     }
 
@@ -74,7 +77,7 @@ public class Game extends GameThread {
                     case 5:
                     case 6:
                     case 7: {
-                        block = new Stone(x, y);
+                        block = new Stone(location.clone());
                         break;
                     }
 
@@ -82,11 +85,11 @@ public class Game extends GameThread {
                     case -2:
                     case -3:
                     case -4: {
-                        block = new Water(x, y);
+                        block = new Water(location.clone());
                         break;
                     }
                     default:
-                        block = new Wood_Plank(x, y);
+                        block = new Wood_Plank(location.clone());
                 }
 
                 overWorld.addTile(block, x, y);
@@ -106,8 +109,8 @@ public class Game extends GameThread {
         /*VER 3
          */
 
-        for(int y = 0; y < height; y+=DEFAULT_TILE_SIZE_PX) {
-            for (int x = 0; x < width; x += DEFAULT_TILE_SIZE_PX) {
+        for (int x = 0; x < width; x += DEFAULT_TILE_SIZE_PX) {
+            for(int y = 0; y < height; y+=DEFAULT_TILE_SIZE_PX) {
                 graphics.drawImage(overWorld.getTile()[x][y].getBlockMaterial().getBufferedImage(), x, y, null);
             }
         }
@@ -148,10 +151,6 @@ public class Game extends GameThread {
     @Override
     public void stopThread() {
 
-    }
-
-    public OpenSimplexNoise getOpenSimplexNoise() {
-        return openSimplexNoise;
     }
 
     public static Game getGame() {

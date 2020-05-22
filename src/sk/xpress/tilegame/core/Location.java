@@ -2,7 +2,7 @@ package sk.xpress.tilegame.core;
 
 import sk.xpress.tilegame.core.tiles.World;
 
-public class Location {
+public class Location implements Cloneable{
 
     private World world;
     private double x;
@@ -29,4 +29,14 @@ public class Location {
     public void setX(double x) { this.x = x; }
 
     public void setY(double y) { this.y = y; }
+
+    public Location clone() {
+        try {
+            return (Location) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

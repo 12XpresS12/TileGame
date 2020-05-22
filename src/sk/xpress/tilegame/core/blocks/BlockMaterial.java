@@ -28,8 +28,8 @@ public final class BlockMaterial {
         if(bufferedImage == null)
             return;
 
-        for(int x = 1; x < Game.DEFAULT_TILE_SIZE_PX; x++) {
-            for(int y = 1; y < Game.DEFAULT_TILE_SIZE_PX; y++) {
+        for(int x = 0; x < Game.DEFAULT_TILE_SIZE_PX; x++) {
+            for(int y = 0; y < Game.DEFAULT_TILE_SIZE_PX; y++) {
                 bufferedImage.setRGB(x, y, color.getRGB());
             }
         }

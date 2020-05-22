@@ -1,30 +1,24 @@
 package sk.xpress.tilegame.core.blocks;
 
 import sk.xpress.tilegame.core.Collision;
+import sk.xpress.tilegame.core.Location;
 
 public abstract class Block {
 
-    protected int x;
-    protected int y;
+    protected Location location;
 
-    public Block(int x, int y){
-        this.x = x;
-        this.y = y;
+    public Block(Location location){
+        this.location = location;
     }
 
     public abstract BlockMaterial getBlockMaterial();
     public abstract Collision getCollision();
 
-    public int getX() {
-        return x;
-    }
+    public Location getBlockLocation() { return location; }
 
-    public int getY() {
-        return y;
-    }
 
     @Override
     public String toString() {
-        return "Block=[X:" + x + ", Y:" + y + "]";
+        return "Block=[World:" + location.getWorld() + ", X:" + location.getX() + ", Y:" + location.getY() + "]";
     }
 }

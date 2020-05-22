@@ -19,6 +19,6 @@ public class Overworld extends World {
 
     @Override
     public void addTile(Block block, int x, int y) {
-        getTile()[x][y] = new Tile(Game.DEFAULT_TILE_SIZE_PX , Game.DEFAULT_TILE_SIZE_PX, block);
+        getTile()[x][y] = new Tile(Game.DEFAULT_TILE_SIZE_PX-1 , Game.DEFAULT_TILE_SIZE_PX-1, block);
     }
 }
