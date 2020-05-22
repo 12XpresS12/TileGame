@@ -14,6 +14,8 @@ public final class BlockMaterial {
 
     public BlockMaterial(int id, String name, Color color) {
         this.id = id;
+        this.color = color;
+        this.name = name;
     }
 
     public int getId() {
@@ -29,8 +31,9 @@ public final class BlockMaterial {
     }
 
     static {
-        WATER = (new BlockMaterial(0, "water", Color.getColor("2389da")));
-        STONE = (new BlockMaterial(1, "stone", Color.getColor("888C8D")));
-        GRASS_BLOCK = (new BlockMaterial(2, "grass_block", Color.getColor("0b6623")));
+        System.out.println("INITIALIZING MATERIALS");
+        WATER = (new BlockMaterial(0, "water", new Color(35, 137, 218)));
+        STONE = (new BlockMaterial(1, "stone", new Color(136,140,141)));
+        GRASS_BLOCK = (new BlockMaterial(2, "grass_block", new Color(11,102,35)));
     }
 }

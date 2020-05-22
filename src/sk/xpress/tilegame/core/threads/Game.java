@@ -2,7 +2,7 @@ package sk.xpress.tilegame.core.threads;
 
 import sk.xpress.tilegame.core.blocks.*;
 import sk.xpress.tilegame.core.map.OpenSimplexNoise;
-import sk.xpress.tilegame.core.tiles.Overworld;
+import sk.xpress.tilegame.core.tiles.worlds.Overworld;
 import sk.xpress.tilegame.core.tiles.World;
 
 import javax.swing.*;
@@ -94,7 +94,6 @@ public class Game extends GameThread {
             for(int y = 0; y < height; y+=DEFAULT_TILE_SIZE_PX) {
 
                 graphics.setColor(overWorld.getTile()[x][y].getBlockMaterial().getColor());
-                System.out.println("COLOR: " + overWorld.getTile()[x][y].getBlockMaterial().getColor());
                 graphics.fill3DRect(x, y, x+DEFAULT_TILE_SIZE_PX, y+DEFAULT_TILE_SIZE_PX, false);
             }
         }

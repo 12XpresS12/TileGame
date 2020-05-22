@@ -3,19 +3,11 @@ package sk.xpress.tilegame.core;
 import sk.xpress.tilegame.core.threads.Game;
 
 public class Main {
-
     private static final String gameThreadName = "Main";
 
-    private static Main main;
-
-    public static void main(String[] args) throws InterruptedException {
-        main = new Main();
-
+    public static void main(String[] args) {
         Game game = new Game("Test");
         game.createThread(gameThreadName);
-
-        Game.setGame(game);
+        Game.setGame(game); // Initialize Game instance
     }
-
-    public static Main getMain() { return main; }
 }

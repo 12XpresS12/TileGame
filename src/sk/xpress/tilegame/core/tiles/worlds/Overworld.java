@@ -1,8 +1,10 @@
-package sk.xpress.tilegame.core.tiles;
+package sk.xpress.tilegame.core.tiles.worlds;
 
 import sk.xpress.tilegame.core.blocks.Block;
 import sk.xpress.tilegame.core.blocks.BlockMaterial;
 import sk.xpress.tilegame.core.threads.Game;
+import sk.xpress.tilegame.core.tiles.Tile;
+import sk.xpress.tilegame.core.tiles.World;
 
 public class Overworld extends World {
 
