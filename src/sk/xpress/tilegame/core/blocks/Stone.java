@@ -4,21 +4,17 @@ import sk.xpress.tilegame.core.Collision;
 
 public class Stone extends Block {
 
-    private int width;
-    private int height;
-
-    private Collision collision;
-
-    public Stone(int width, int height) {
-        this.width = width;
-        this.height = height;
-
-        collision = Collision.ALLOWED;
+    public Stone(int x, int y) {
+        super(x, y);
     }
 
+    @Override
+    public BlockMaterial getBlockMaterial() {
+        return BlockMaterial.STONE;
+    }
 
     @Override
     public Collision getCollision() {
-        return collision;
+        return Collision.ALLOWED;
     }
 }

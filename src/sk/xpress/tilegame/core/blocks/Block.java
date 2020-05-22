@@ -4,12 +4,27 @@ import sk.xpress.tilegame.core.Collision;
 
 public abstract class Block {
 
-    private Collision collision;
+    protected int x;
+    protected int y;
 
+    public Block(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public abstract BlockMaterial getBlockMaterial();
     public abstract Collision getCollision();
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 
     @Override
     public String toString() {
-        return super.toString();
+        return "Block=[X:" + x + ", Y:" + y + "]";
     }
 }

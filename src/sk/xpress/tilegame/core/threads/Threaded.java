@@ -17,7 +17,7 @@ public abstract class Threaded implements Runnable {
 
         Thread thread = new Thread();
         //threadMap.putIfAbsent(threaded, thread);
-        threadMap.putIfAbsent(threadName, new ThreadClass(threaded,thread));
+        threadMap.putIfAbsent(threadName, new ThreadClass(threaded, thread));
 
         thread.start();
         this.startThread();

@@ -1,7 +1,6 @@
 package sk.xpress.tilegame.core;
 
 import sk.xpress.tilegame.core.threads.Game;
-import sk.xpress.tilegame.core.tiles.TileMap;
 
 public class Main {
 
@@ -14,6 +13,8 @@ public class Main {
 
         Game game = new Game("Test");
         game.createThread(gameThreadName);
+
+        Game.setGame(game);
     }
 
     public static Main getMain() { return main; }
