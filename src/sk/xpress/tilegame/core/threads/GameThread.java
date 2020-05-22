@@ -27,8 +27,38 @@ public abstract class GameThread implements Runnable {
     @Override
     public void run() {
         initialize();
-        System.out.println("THREAD: " + Thread.currentThread().getName());
 
+
+        long lastTime = System.nanoTime();
+        long timer = System.currentTimeMillis();
+        final double ns = 1000000000.0 / 60.0;
+        double delta = 0;
+        int frames = 0;
+        int updates = 0;
+        while(isRunning) {
+            long now = System.nanoTime();
+            delta += (now - lastTime) / ns;
+            lastTime = now;
+            while(delta >= 1) {
+                update();
+                updates++;
+                delta--;
+            }
+
+            render();
+            frames++;
+
+            if(System.currentTimeMillis() - timer > 1000) {
+                timer += 1000;
+                System.out.println(updates + " ups, " + frames + " fps");
+                updates = 0;
+                frames = 0;
+            }
+        }
+
+
+        System.out.println("THREAD: " + Thread.currentThread().getName());
+/*
         int x = 0;
         while(isRunning) {
             try {
@@ -46,7 +76,7 @@ public abstract class GameThread implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
         System.out.println("Ending thread");
     }
 }

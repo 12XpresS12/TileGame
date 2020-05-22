@@ -20,7 +20,7 @@ public class Game extends GameThread {
 
     private static Game game;
 
-    public static final int DEFAULT_TILE_SIZE_PX = 16;
+    public static final int DEFAULT_TILE_SIZE_PX = 32;
 
     private static final Random random = new Random();
 
@@ -85,7 +85,6 @@ public class Game extends GameThread {
 
     @Override
     public void update() {
-        System.out.println("UPDATE");
     }
 
 
