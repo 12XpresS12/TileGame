@@ -1,8 +1,12 @@
 package sk.xpress.tilegame.core.threads;
 
+import java.awt.*;
+import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
 public abstract class GameThread implements Runnable {
+
+    private static final double UPDATE_PER_SECOND = 60d;
 
     Thread gameThread;
     boolean isRunning = true;
@@ -10,7 +14,6 @@ public abstract class GameThread implements Runnable {
     public GameThread() {
         System.out.println("Initializing Thread");
         gameThread = new Thread(this, "GameThread");
-
     }
 
     protected void preparedToStart() {
@@ -26,12 +29,11 @@ public abstract class GameThread implements Runnable {
 
     @Override
     public void run() {
-        initialize();
-
+        System.out.println("THREAD: " + Thread.currentThread().getName());
 
         long lastTime = System.nanoTime();
         long timer = System.currentTimeMillis();
-        final double ns = 1000000000.0 / 60.0;
+        final double ns = 1000000000.0 / UPDATE_PER_SECOND;
         double delta = 0;
         int frames = 0;
         int updates = 0;
@@ -56,27 +58,7 @@ public abstract class GameThread implements Runnable {
             }
         }
 
-
-        System.out.println("THREAD: " + Thread.currentThread().getName());
-/*
-        int x = 0;
-        while(isRunning) {
-            try {
-                System.out.println("Operation: " + x);
-                x++;
-
-                update();
-                render();
-
-                if(x > 600000) {
-                    stopThread();
-                    isRunning = false;
-                }
-                TimeUnit.MILLISECONDS.sleep(100000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }*/
+        stopThread();
         System.out.println("Ending thread");
     }
 }

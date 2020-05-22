@@ -1,10 +1,12 @@
-package sk.xpress.tilegame.core.blocks;
+package sk.xpress.tilegame.core.blocks.block;
 
 import sk.xpress.tilegame.core.Collision;
+import sk.xpress.tilegame.core.blocks.Block;
+import sk.xpress.tilegame.core.blocks.BlockMaterial;
 
-public class GrassBlock extends Block {
+public class Grass_Block extends Block {
 
-    public GrassBlock(int x, int y) {
+    public Grass_Block(int x, int y) {
         super(x, y);
     }
 

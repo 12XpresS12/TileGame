@@ -1,6 +1,8 @@
-package sk.xpress.tilegame.core.blocks;
+package sk.xpress.tilegame.core.blocks.block;
 
 import sk.xpress.tilegame.core.Collision;
+import sk.xpress.tilegame.core.blocks.Block;
+import sk.xpress.tilegame.core.blocks.BlockMaterial;
 
 public class Water extends Block {
 
