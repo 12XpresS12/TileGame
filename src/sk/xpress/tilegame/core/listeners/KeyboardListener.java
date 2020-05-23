@@ -10,8 +10,6 @@ public class KeyboardListener {
     private static KeyListener keyListener;
 
     public KeyboardListener() {
-        System.out.println("LISTNER");
-
         keyListener = new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {

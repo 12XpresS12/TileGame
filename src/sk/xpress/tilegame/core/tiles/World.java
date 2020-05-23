@@ -17,7 +17,7 @@ public abstract class World implements IWorld {
         return openSimplexNoise;
     }
 
-    protected Tile[][] tile = new Tile[10000][10000];
+    protected Tile[][] tile = new Tile[20000][20000];
 
     public synchronized Tile[][] getTile() { return tile; }
 

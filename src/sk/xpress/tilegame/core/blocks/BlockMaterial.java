@@ -50,10 +50,10 @@ public final class BlockMaterial {
     }
 
     static {
-        System.out.println("INITIALIZING MATERIALS");
+        System.out.println("Initializing block materials");
         WATER = (new BlockMaterial(0, "water", new Color(35, 137, 218)));
         STONE = (new BlockMaterial(1, "stone", new Color(136,140,141)));
         GRASS_BLOCK = (new BlockMaterial(2, "grass_block", new Color(11,102,35)));
-        WOOD_PLANK = (new BlockMaterial(2, "woood_plank", new Color(100,100,100)));
+        WOOD_PLANK = (new BlockMaterial(2, "wood_plank", new Color(100,100,100)));
     }
 }

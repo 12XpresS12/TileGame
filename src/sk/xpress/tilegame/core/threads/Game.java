@@ -27,8 +27,8 @@ public class Game extends GameThread {
     private JFrame jFrame;
     private Graphics graphics;
 
-    private int width = 800;
-    private int height = 600;
+    private int width = 1920;
+    private int height = 1270;
     private static Game game;
     public static final int DEFAULT_TILE_SIZE_PX = 32;
 
@@ -149,9 +149,7 @@ public class Game extends GameThread {
     }
 
     @Override
-    public void stopThread() {
-
-    }
+    public void stopThread() { }
 
     public static Game getGame() {
         return game;
