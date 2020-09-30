@@ -16,9 +16,13 @@ public abstract class Block {
 
     public Location getBlockLocation() { return location; }
 
+    public double getX() { return location.getX(); }
+    public double getY() { return location.getY(); }
 
     @Override
     public String toString() {
-        return "Block=[World:" + location.getWorld() + ", X:" + location.getX() + ", Y:" + location.getY() + "]";
+        return "Block{" +
+                "location=" + location +
+                '}';
     }
 }

@@ -13,9 +13,11 @@ public class Tile {
     private BlockMaterial blockMaterial;
     private Block block;
 
-    public Tile(int width, int height, Block block) {
-        this.height = height;
-        this.width = width;
+    public static final int TILE_WIDTH_HEIGHT = 64;
+
+    public Tile(Block block) {
+        this.height = TILE_WIDTH_HEIGHT-1;
+        this.width = TILE_WIDTH_HEIGHT-1;
         this.blockMaterial = block.getBlockMaterial();
         this.block = block;
     }
@@ -32,5 +34,15 @@ public class Tile {
 
     public Block getBlock() {
         return block;
+    }
+
+    @Override
+    public String toString() {
+        return "Tile{" +
+                "width=" + width +
+                ", height=" + height +
+                ", blockMaterial=" + blockMaterial +
+                ", block=" + block +
+                '}';
     }
 }

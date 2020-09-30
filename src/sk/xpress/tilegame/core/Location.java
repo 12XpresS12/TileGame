@@ -1,34 +1,45 @@
 package sk.xpress.tilegame.core;
 
-import sk.xpress.tilegame.core.tiles.World;
+import sk.xpress.tilegame.core.tiles.Dimension;
+import sk.xpress.tilegame.core.utils.Cord;
 
-public class Location implements Cloneable{
+public class Location implements Cloneable {
 
-    private World world;
-    private double x;
-    private double y;
+    private Dimension world;
+    private Cord.Double cord;
 
-    public Location(World world, double x, double y) {
+    public Location(Dimension world, double x, double y) {
         this.world = world;
-        this.x = x;
-        this.y = y;
+        this.cord = new Cord.Double<>(x, y);
     }
 
-    public World getWorld() { return this.getWorld(); }
+    public Dimension getWorld() {
+        System.out.println("Dimension: " + this.getWorld().toString());
+        return this.getWorld();
+    }
 
-    public void setWorld(World world) { this.world = world; }
+    public void setWorld(Dimension world) { this.world = world; }
 
     public double getX() {
-        return this.x;
+        return this.cord.getX();
     }
 
     public double getY() {
-        return this.y;
+        return this.cord.getY();
     }
 
-    public void setX(double x) { this.x = x; }
+    public void setX(double x) { this.cord.setX(x); }
 
-    public void setY(double y) { this.y = y; }
+    public void setY(double y) { this.cord.setY(y); }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "world=" + world +
+                ", x=" + cord.getX() +
+                ", y=" + cord.getY() +
+                '}';
+    }
 
     public Location clone() {
         try {

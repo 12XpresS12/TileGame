@@ -3,14 +3,12 @@ package sk.xpress.tilegame.core.tiles;
 import sk.xpress.tilegame.core.blocks.Block;
 import sk.xpress.tilegame.core.blocks.BlockMaterial;
 
-public interface IWorld {
+public interface IDimension {
 
     String getWorldName();
 
-    Tile[][] getTile();
+    Chunk renderChunk(int chunkX, int chunkY);
 
-    @Deprecated
-    void addTile(BlockMaterial blockMaterial, int x, int y);
+    Tile addTile(Chunk chunk, Block block, int x, int y);
 
-    void addTile(Block block, int x, int y);
 }

@@ -1,14 +1,16 @@
 package sk.xpress.tilegame.core.threads;
 
+import sk.xpress.tilegame.core.logger.Log;
+
 public abstract class GameThread implements Runnable {
 
     Thread gameThread;
     boolean isRunning = true;
 
-    private static final int MAX_FPS = 250;
+    private static final int MAX_FPS = 999999999;
 
     public GameThread() {
-        System.out.println("Initializing Thread");
+        Log.info("Initializing Thread");
         gameThread = new Thread(this, "GameThread");
     }
 
@@ -16,7 +18,9 @@ public abstract class GameThread implements Runnable {
         gameThread.start();
     }
 
+    protected abstract void preinitialize();
     protected abstract void initialize();
+    protected abstract void postinitialize();
 
     protected abstract void update();
     protected abstract void render();
@@ -25,7 +29,7 @@ public abstract class GameThread implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Thread: " + Thread.currentThread().getName());
+        Log.info("Thread: " + Thread.currentThread().getName());
 
         long lastTime = System.nanoTime();
         long timer = System.currentTimeMillis();
@@ -53,7 +57,7 @@ public abstract class GameThread implements Runnable {
 
             if(System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
-                System.out.println(updates + " ups, " + frames + " fps");
+                Log.info(updates + " ups, " + frames + " fps");
                 if(frames <= 10)
                     throw new RuntimeException("Frames are under 10 FPS!");
 
