@@ -1,21 +1,21 @@
 package sk.xpress.tilegame.core.threads;
 
 import sk.xpress.tilegame.core.Location;
-import sk.xpress.tilegame.core.blocks.*;
+import sk.xpress.tilegame.core.blocks.Block;
 import sk.xpress.tilegame.core.blocks.block.Grass_Block;
 import sk.xpress.tilegame.core.blocks.block.Stone;
 import sk.xpress.tilegame.core.blocks.block.Water;
 import sk.xpress.tilegame.core.blocks.block.Wood_Plank;
 import sk.xpress.tilegame.core.camera.Camera;
 import sk.xpress.tilegame.core.camera.ICamera;
-import sk.xpress.tilegame.core.listeners.KeyboardListener;
 import sk.xpress.tilegame.core.logger.Log;
 import sk.xpress.tilegame.core.tiles.Chunk;
+import sk.xpress.tilegame.core.tiles.Dimension;
 import sk.xpress.tilegame.core.tiles.DimensionManager;
 import sk.xpress.tilegame.core.tiles.Tile;
 import sk.xpress.tilegame.core.tiles.worlds.World;
-import sk.xpress.tilegame.core.tiles.Dimension;
 import sk.xpress.tilegame.core.utils.Cord;
+import sk.xpress.tilegame.entity.entity.PlayerEntity;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,20 +25,20 @@ import java.util.Random;
 public class Game extends GameThread {
 
     private String gameTitle;
-    private JFrame jFrame;
     private Graphics graphics;
 
-    private int width = 800;
-    private int height = 480;
+    private int width = 1280;
+    private int height = 720;
     private static Game game;
-    public static final int DEFAULT_TILE_SIZE_PX = 64;
+    public static final int DEFAULT_TILE_SIZE_PX = 25;
 
     private static final Random random = new Random();
 
     private Dimension overWorld;
     private ICamera camera;
+    private PlayerEntity playerEntity;
 
-    private static final int VIEW_DISTANCE = 4;
+    private static final int VIEW_DISTANCE = 5;
 
     private static ArrayList<Chunk> renderedChunks;
 
@@ -51,10 +51,7 @@ public class Game extends GameThread {
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
         jFrame.setSize(width, height);
-
-        new KeyboardListener();
-
-        jFrame.addKeyListener(new KeyboardListener());
+        jFrame.setResizable(false);
 
         preinitialize();
         initialize();
@@ -81,8 +78,33 @@ public class Game extends GameThread {
 
     @Override
     protected void initialize() {
+        int renderedChunks = cameraMove();
+        Log.info("Rendered chunks: " + renderedChunks);
 
         Log.info("Inititialize complete!");
+
+    }
+
+    public int cameraMove() {
+        int renderedChunks = 0;
+        int camPosX = (int) camera.getCameraPositionX();
+        int camPosY = (int) camera.getCameraPositionY();
+
+        for(int chunkX = camPosX-VIEW_DISTANCE; chunkX < camPosX+VIEW_DISTANCE; chunkX++) {
+            for(int chunkY = camPosY-VIEW_DISTANCE; chunkY < camPosY+VIEW_DISTANCE; chunkY++) {
+                Chunk chunk = overWorld.renderChunk(chunkX, chunkY);
+                for(int x = chunk.getMinX(); x < chunk.getMaxX(); x++) {
+                    for(int y = chunk.getMinY(); y < chunk.getMaxY(); y++) {
+                        overWorld.addTile(chunk,
+                                getTypeOfBlockFromCord(new Cord.Double<>(x,y)),
+                                x-(int)Cord.getLocationFromChunk(chunk.getChunkCoord()).getX(),
+                                y-(int)Cord.getLocationFromChunk(chunk.getChunkCoord()).getY());
+                    }
+                }
+                renderedChunks++;
+            }
+        }
+        return renderedChunks;
     }
 
     private Block getTypeOfBlockFromCord(Cord.Double cord) {
@@ -123,98 +145,9 @@ public class Game extends GameThread {
 
     @Override
     public void postinitialize() {
-        int renderedChunks = 0;
-
-        int camPosX = (int) camera.getCameraPositionX();
-        int camPosY = (int) camera.getCameraPositionY();
-
-        for(int chunkX = camPosX-VIEW_DISTANCE; chunkX < camPosX+VIEW_DISTANCE; chunkX++) {
-            for(int chunkY = camPosY-VIEW_DISTANCE; chunkY < camPosY+VIEW_DISTANCE; chunkY++) {
-
-                Log.error("(CHUNK) chunkX: " + chunkX + ", chunkY: " + chunkY);
-                Chunk chunk = overWorld.renderChunk(chunkX, chunkY);
-                for(int x = chunk.getMinX(); x < chunk.getMaxX(); x++) {
-                    for(int y = chunk.getMinY(); y < chunk.getMaxY(); y++) {
-                        Log.error("(TILE POS) X " + x +  ", Y " + y);
-                        overWorld.addTile(chunk,
-                                getTypeOfBlockFromCord(new Cord.Double<>(x,y)),
-                                x-(int)Cord.getLocationFromChunk(chunk.getChunkCoord()).getX(),
-                                y-(int)Cord.getLocationFromChunk(chunk.getChunkCoord()).getY());
-                    }
-                }
-               /* if(x > 9)
-                    x = 0;
-                if(y > 9)
-                    y = 0;
-
-                Log.info("(CHUNK) " + chunkX + ", " + chunkY);
-
-                Chunk chunk = overWorld.renderChunk(chunkX, chunkY);
-                Cord.Double position = Cord.getLocationFromChunk(new Cord.Int(chunkX, chunkY));
-                Block block = getTypeOfBlockFromCord(position);
-
-                overWorld.addTile(chunk, block, x, y);
-*/
-                renderedChunks++;
-
-            }
-
-        }
-
-
-        Log.info("Rendered chunks: " + renderedChunks);
+       playerEntity = new PlayerEntity(new Location(overWorld, 100, 100), camera);
+       jFrame.addKeyListener(playerEntity);
         Log.info("Post-Inititialize complete!");
-        //throw new NullPointerException("VYVOLANE :)");
-        /*
-        int renderedChunks = 0;
-        for(int chunkX = (int)(camera.getCameraPositionX()-VIEW_DISTANCE); chunkX < camera.getCameraPositionX()+VIEW_DISTANCE; chunkX++) {
-            for(int chunkY = (int)(camera.getCameraPositionY()-VIEW_DISTANCE); chunkY < camera.getCameraPositionX()+VIEW_DISTANCE; chunkY++) {
-
-                //Log.info("chunkX: " + chunkX + " chunkY: " + chunkY);
-
-                Chunk chunk = overWorld.renderChunk(chunkX, chunkY);
-
-                Log.info("Size of chunk tiles: " + chunk.getTile(0, 0) + " , " + chunk.getTiles().length);
-                Cord.Double position = Cord.getLocationFromChunk(new Cord.Int(chunkX, chunkY));
-                Block block = getTypeOfBlockFromCord(position);
-                overWorld.addTile(chunk, block, (int) position.getX()%10, (int) position.getY()%10);
-                renderedChunks++;
-            }
-        }
-
-
-*/
-
-/*
-        for(int x = 0; x < width*8; x+=DEFAULT_TILE_SIZE_PX) {
-            for (int y = 0; y < height*8; y += DEFAULT_TILE_SIZE_PX) {
-
-                renderedChunks = 0;
-
-
-
-                /*
-                int ab = 0;
-                a: for(int chunkX = 0, chunkY = 0, i = 0; i < 200; i++) {
-                    Chunk chunk = overWorld.addChunk(chunkX, chunkY);
-
-                    for(int e = 0; e < MAX_TILES_CHUNK; e++) {
-                        overWorld.addTile(chunk, block, x, y);
-
-                        if(e == MAX_TILES_CHUNK-1) {
-                            if(chunkX == 200)
-                                chunkY++;
-                            else chunkX++;
-
-                            ab++;
-                            if(ab >= 5000)
-                                break a;
-                        }
-                    }
-                }*
-            }
-        }
-        Log.info("Rendered chunks: " + renderedChunks);*/
     }
 
     @Override
@@ -239,8 +172,8 @@ public class Game extends GameThread {
                     for(Tile tile : tile1) {
                         graphics.drawImage(
                                 tile.getBlockMaterial().getBufferedImage(),
-                                (int) tile.getBlock().getX(),
-                                (int) tile.getBlock().getY(), null);
+                                (int) tile.getBlock().getX()*DEFAULT_TILE_SIZE_PX%width,
+                                (int) tile.getBlock().getY()*DEFAULT_TILE_SIZE_PX%height, null);
                     }
                 }
                 Cord.Double pos = Cord.getLocationFromChunk(chunk.getChunkCoord());

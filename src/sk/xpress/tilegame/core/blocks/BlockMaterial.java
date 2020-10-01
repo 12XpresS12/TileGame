@@ -6,9 +6,7 @@ import sk.xpress.tilegame.core.threads.Game;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 
 public final class BlockMaterial {

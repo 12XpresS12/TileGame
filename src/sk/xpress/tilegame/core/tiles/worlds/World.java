@@ -1,11 +1,9 @@
 package sk.xpress.tilegame.core.tiles.worlds;
 
 import sk.xpress.tilegame.core.blocks.Block;
-import sk.xpress.tilegame.core.logger.Log;
-import sk.xpress.tilegame.core.threads.Game;
 import sk.xpress.tilegame.core.tiles.Chunk;
-import sk.xpress.tilegame.core.tiles.Tile;
 import sk.xpress.tilegame.core.tiles.Dimension;
+import sk.xpress.tilegame.core.tiles.Tile;
 
 public class World extends Dimension {
 

@@ -1,12 +1,11 @@
 package sk.xpress.tilegame.core.application;
 
 
-import org.reflections.scanners.Scanner;
+import org.reflections.Reflections;
 import sk.xpress.tilegame.core.Main;
 import sk.xpress.tilegame.core.application.services.TestService;
 import sk.xpress.tilegame.core.logger.Log;
 
-import org.reflections.Reflections;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 

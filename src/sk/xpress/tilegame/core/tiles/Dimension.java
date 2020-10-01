@@ -2,10 +2,6 @@ package sk.xpress.tilegame.core.tiles;
 
 import sk.xpress.tilegame.core.map.IWorldGenrator;
 import sk.xpress.tilegame.core.map.OpenSimplexNoise;
-import sk.xpress.tilegame.core.utils.Cord;
-
-import java.util.Arrays;
-import java.util.Map;
 
 
 public abstract class Dimension implements IDimension {

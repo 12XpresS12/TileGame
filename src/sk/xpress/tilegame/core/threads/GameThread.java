@@ -2,7 +2,11 @@ package sk.xpress.tilegame.core.threads;
 
 import sk.xpress.tilegame.core.logger.Log;
 
+import javax.swing.*;
+
 public abstract class GameThread implements Runnable {
+
+    protected JFrame jFrame;
 
     Thread gameThread;
     boolean isRunning = true;
@@ -58,6 +62,7 @@ public abstract class GameThread implements Runnable {
             if(System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
                 Log.info(updates + " ups, " + frames + " fps");
+                jFrame.setTitle("Frames: " + frames);
                 if(frames <= 10)
                     throw new RuntimeException("Frames are under 10 FPS!");
 

@@ -1,4 +1,4 @@
-package sk.xpress.tilegame.core.listeners;
+package sk.xpress.tilegame.core.eventsManager.listeners;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

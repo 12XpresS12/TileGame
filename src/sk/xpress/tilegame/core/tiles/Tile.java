@@ -1,9 +1,7 @@
 package sk.xpress.tilegame.core.tiles;
 
-import sk.xpress.tilegame.core.blocks.BlockMaterial;
 import sk.xpress.tilegame.core.blocks.Block;
-
-import java.awt.image.*;
+import sk.xpress.tilegame.core.blocks.BlockMaterial;
 
 public class Tile {
 
